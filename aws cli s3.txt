@@ -1,0 +1,64 @@
+List the delete marker
+
+aws s3 ls
+
+aws s3api list-object-versions --bucket sgw-2025-02-26-5smaf --query "DeleteMarkers[].[Key, VersionId]" --output text
+
+Delete  all the delete marker
+
+aws s3api list-object-versions --bucket sgw-2025-02-26-5smaf --query "DeleteMarkers[].[Key, VersionId]" --output text | awk '{print "aws s3api delete-object --bucket sgw-2025-02-26-5smaf --key "$1" --version-id "$2}' | bash
+
+
+List all the item of bucket
+
+aws s3 ls s3://sgw-2025-02-26-5smaf --recursive --human-readable --summarize
+
+
+List item in json format
+
+aws s3api list-objects-v2 --bucket sgw-2025-02-26-5smaf --query "Contents[].{Key: Key, Size: Size}" --output json
+
+List all the version
+
+aws s3api list-object-versions --bucket sgw-2025-02-26-5smaf
+
+command to check lifecyle
+
+aws s3api get-bucket-lifecycle-configuration --bucket sgw-2025-02-26-5smaf
+
+
+List All Storage Gateways
+
+aws storagegateway list-gateways
+
+
+Describe a Specific Gateway
+
+aws storagegateway describe-gateway-information --gateway-arn <GATEWAY_ARN>
+
+
+Describe cache storage
+
+aws storagegateway describe-cache --gateway-arn <GATEWAY_ARN>
+
+
+Check Gateway Health Status
+
+aws storagegateway describe-gateway-information --gateway-arn <GATEWAY_ARN> --query "GatewayState"
+
+Retrieve the Upload Buffer Details
+
+aws storagegateway describe-upload-buffer --gateway-arn <GATEWAY_ARN>
+
+Retrieve Information on File Shares
+
+aws storagegateway list-file-shares
+
+Log group
+
+aws storagegateway describe-gateway-information --gateway-arn <GATEWAY_ARN> --query "CloudWatchLogGroup"
+
+
+
+
+
